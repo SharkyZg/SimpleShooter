@@ -18,20 +18,31 @@ AGun::AGun()
 	Mesh->SetupAttachment(Root);
 }
 
-void AGun::PullTrigger() 
+void AGun::PullTrigger()
 {
 	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Mesh, TEXT("MuzzleFlashSocket"));
 
-	APawn* OwnerPawn = Cast<APawn>(GetOwner());
-	if(OwnerPawn == nullptr) return;
-	AController* OwnerController = OwnerPawn->GetController();
-	if(OwnerController == nullptr) return;
+	APawn *OwnerPawn = Cast<APawn>(GetOwner());
+	if (OwnerPawn == nullptr)
+		return;
+	AController *OwnerController = OwnerPawn->GetController();
+	if (OwnerController == nullptr)
+		return;
 
 	FVector Location;
 	FRotator Rotation;
 	OwnerController->GetPlayerViewPoint(Location, Rotation);
-	
-	DrawDebugCamera(GetWorld(), Location, Rotation , 90, 2, FColor::Red, true);
+
+	// ECC_GameTraceChannel1
+	FVector End = Location + Rotation.Vector() * MaxRange;
+
+	struct FHitResult OutHit;
+	bool bSuccess = GetWorld()->LineTraceSingleByChannel(OutHit, Location, End, ECollisionChannel::ECC_GameTraceChannel1);
+
+	if (bSuccess)
+	{
+		DrawDebugPoint(GetWorld(), OutHit.Location, 20, FColor::Red, true);
+	}
 }
 
 // Called when the game starts or when spawned
