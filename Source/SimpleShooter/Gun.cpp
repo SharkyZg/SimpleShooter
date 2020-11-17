@@ -36,12 +36,13 @@ void AGun::PullTrigger()
 	// ECC_GameTraceChannel1
 	FVector End = Location + Rotation.Vector() * MaxRange;
 
-	struct FHitResult OutHit;
-	bool bSuccess = GetWorld()->LineTraceSingleByChannel(OutHit, Location, End, ECollisionChannel::ECC_GameTraceChannel1);
+	struct FHitResult Hit;
+	bool bSuccess = GetWorld()->LineTraceSingleByChannel(Hit, Location, End, ECollisionChannel::ECC_GameTraceChannel1);
 
 	if (bSuccess)
 	{
-		DrawDebugPoint(GetWorld(), OutHit.Location, 20, FColor::Red, true);
+		FVector ShotDirection = -Rotation.Vector();
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.Location, ShotDirection.Rotation());
 	}
 }
 
