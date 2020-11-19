@@ -1,13 +1,20 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "ShooterAIController.h"
 
 #include "Kismet/GameplayStatics.h"
-void AShooterAIController::BeginPlay() 
+void AShooterAIController::BeginPlay()
 {
     Super::BeginPlay();
 
-    APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+    PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
     SetFocus(PlayerPawn);
+
+}
+
+void AShooterAIController::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+    if(PlayerPawn == nullptr) return;
+    MoveToActor(PlayerPawn, 200);
 }

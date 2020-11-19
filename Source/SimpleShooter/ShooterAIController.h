@@ -6,6 +6,7 @@
 #include "AIController.h"
 #include "ShooterAIController.generated.h"
 
+class APawn;
 /**
  * 
  */
@@ -13,6 +14,12 @@ UCLASS()
 class SIMPLESHOOTER_API AShooterAIController : public AAIController
 {
 	GENERATED_BODY()
+public:
+	virtual void Tick(float DeltaSeconds);
+
 protected:
 	virtual void BeginPlay() override;
+
+private:
+	APawn *PlayerPawn;
 };
