@@ -21,6 +21,8 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+	APawn *PlayerPawn;
+
 	UPROPERTY(EditAnywhere)
-	class UBehaviorTree* AIBehavior;
+	class UBehaviorTree *AIBehavior;
 };
