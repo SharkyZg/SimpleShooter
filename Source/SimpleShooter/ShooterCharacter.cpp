@@ -9,7 +9,7 @@
 AShooterCharacter::AShooterCharacter()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-    PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = true;
 }
 
 // Called when the game starts or when spawned
@@ -58,15 +58,15 @@ float AShooterCharacter::TakeDamage(float DamageAmount, struct FDamageEvent cons
 	Health -= DamageToApply;
 	UE_LOG(LogTemp, Warning, TEXT("Health left %f"), Health);
 
-	if(IsDead())
+	if (IsDead())
 	{
-		DetachFromControllerPendingDestroy();
-		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-		ASimpleShooterGameModeBase* GameMode = GetWorld()->GetAuthGameMode<ASimpleShooterGameModeBase>();
+		ASimpleShooterGameModeBase *GameMode = GetWorld()->GetAuthGameMode<ASimpleShooterGameModeBase>();
 		if (GameMode != nullptr)
 		{
 			GameMode->PawnKilled(this);
 		}
+		DetachFromControllerPendingDestroy();
+		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
 
 	return DamageToApply;

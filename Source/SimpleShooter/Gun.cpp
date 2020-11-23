@@ -51,7 +51,7 @@ void AGun::PullTrigger()
 		if (HitActor != nullptr)
 		{
 			FPointDamageEvent DamageEvent(Damage, Hit, ShotDirection, nullptr);
-			HitActor->TakeDamage(10, DamageEvent, OwnerController, this);
+			HitActor->TakeDamage(Damage, DamageEvent, OwnerController, this);
 		}
 	}
 }
