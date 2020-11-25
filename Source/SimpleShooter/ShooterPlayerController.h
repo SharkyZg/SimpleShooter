@@ -24,7 +24,16 @@ private:
 	TSubclassOf<class UUserWidget> WinScreenClass;
 
 	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UUserWidget> CrossairClass;
+
+	UPROPERTY(EditAnywhere)
 	float RestartDelay = 5;
 
 	FTimerHandle RestartTimer;
+
+	UPROPERTY()
+	UUserWidget *Crossair;
+
+protected:
+	virtual void BeginPlay() override;
 };
